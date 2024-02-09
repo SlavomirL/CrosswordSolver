@@ -3,9 +3,10 @@ package com.crosswordsolver.controllers;
 import com.crosswordsolver.services.CrosswordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,11 +20,13 @@ public class HomeController {
         return "home-view";
     }
 
-    @PostMapping("home")
-    public String selectWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength, RedirectAttributes redirectAttributes) {
-        String displayString = crosswordService.testMethod(wordLength);
-        System.out.println(displayString);
-        redirectAttributes.addFlashAttribute("stringToShow", displayString);
+    @PostMapping("/home")
+    public String selectWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength,
+                                   @RequestParam(name = "letters") List<String> letters, RedirectAttributes redirectAttributes) {
+
+        String concatenatedString = crosswordService.testMethodConcat(letters);
+        System.out.println("concatenatedString = " + concatenatedString);
+        redirectAttributes.addFlashAttribute("stringToShow", concatenatedString);
 
 
         return "redirect:/crossword-solver/home";
