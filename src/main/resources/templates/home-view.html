@@ -12,49 +12,16 @@
     <h1>So you want to find a word without effort?</h1>
     <p>To start, tell me how many letters your desired word consists of.</p>
     <form name="wordLengthSelector" id="wordLengthForm" action="/crossword-solver/home" method="post">
-        <input type="radio" id="length3" name="wordLength" value="3" style="display: none;">
+        <input type="radio" id="length3" name="wordLength" value="3" style="display: none;" onclick="toggleSubmitButton()">
         <label for="length3"
                style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">3</label><br>
 
-        <input type="radio" id="length4" name="wordLength" value="4" style="display: none;">
+        <input type="radio" id="length4" name="wordLength" value="4" style="display: none;" onclick="toggleSubmitButton()">
         <label for="length4"
                style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">4</label><br>
 
-        <!--        <input type="radio" id="length5" name="wordLength" onchange="doJob(this)" value="5" style="display: none;">-->
-        <!--        <label for="length5" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">5</label><br>-->
-
-        <!--        <input type="radio" id="length6" name="wordLength" onchange="doJob(this)" value="6" style="display: none;">-->
-        <!--        <label for="length6" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">6</label><br>-->
-
-        <!--        <input type="radio" id="length7" name="wordLength" onchange="doJob(this)" value="7" style="display: none;">-->
-        <!--        <label for="length7" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">7</label><br>-->
-
-        <!--        <input type="radio" id="length8" name="wordLength" onchange="doJob(this)" value="8" style="display: none;">-->
-        <!--        <label for="length8" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">8</label><br>-->
-
-        <!--        <input type="radio" id="length9" name="wordLength" onchange="doJob(this)" value="9" style="display: none;">-->
-        <!--        <label for="length9" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">9</label><br>-->
-
-        <!--        <input type="radio" id="length10" name="wordLength" onchange="doJob(this)" value="10" style="display: none;">-->
-        <!--        <label for="length10" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">10</label><br>-->
-
-        <!--        <input type="radio" id="length11" name="wordLength" onchange="doJob(this)" value="11" style="display: none;">-->
-        <!--        <label for="length11" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">11</label><br>-->
-
-        <!--        <input type="radio" id="length12" name="wordLength" onchange="doJob(this)" value="12" style="display: none;">-->
-        <!--        <label for="length12" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">12</label><br>-->
-
-        <!--        <input type="radio" id="length13" name="wordLength" onchange="doJob(this)" value="13" style="display: none;">-->
-        <!--        <label for="length13" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">13</label><br>-->
-
-        <!--        <input type="radio" id="length14" name="wordLength" onchange="doJob(this)" value="14" style="display: none;">-->
-        <!--        <label for="length14" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">14</label><br>-->
-
-        <!--        <input type="radio" id="length15" name="wordLength" onchange="doJob(this)" value="15" style="display: none;">-->
-        <!--        <label for="length15" style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">15</label><br>-->
-
         <div id="textInputFields"></div>
-        <button type="submit">Confirm</button>
+        <button id="submitButton" style="display: none"  type="submit">Confirm</button>
 
 
     </form>
@@ -89,6 +56,29 @@
             createTextInputFields(wordLength);
         }
     });
+
+    function toggleSubmitButton() {
+        var radios = document.getElementsByName("wordLength");
+        var submitButton = document.getElementById("submitButton");
+        var selected = false;
+
+        for (var i = 0; i < radios.length; i++) {
+            console.log("start looping")
+            if (radios[i].checked) {
+                console.log("found something")
+                selected = true;
+                break;
+            }
+        }
+
+        if (selected) {
+            console.log("everything works as expected")
+            submitButton.style.display = "block";
+        } else {
+            console.log("something went wrong");
+            submitButton.style.display = "none";
+        }
+    }
 
 </script>
 </body>

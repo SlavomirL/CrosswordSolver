@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -22,12 +23,19 @@ public class HomeController {
 
     @PostMapping("/home")
     public String selectWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength,
-                                   @RequestParam(name = "letters") List<String> letters, RedirectAttributes redirectAttributes) {
+                                   @RequestParam(name = "letters") List<String> letters, RedirectAttributes redirectAttributes) throws IOException {
 
-        String concatenatedString = crosswordService.testMethodConcat(letters);
-        System.out.println("concatenatedString = " + concatenatedString);
-        redirectAttributes.addFlashAttribute("stringToShow", concatenatedString);
+        String[] wordList = crosswordService.loadFileContent();
+        String inputString = crosswordService.buildString(letters);
 
+        int lowerIndex = crosswordService.findLowerIndex(wordList, wordLength, 0, crosswordService.loadFileContent().length - 1);
+        int upperIndex = crosswordService.findUpperIndex(wordList, wordLength, 0, crosswordService.loadFileContent().length - 1);
+
+        List<String> result = crosswordService.findWords(wordList, lowerIndex, upperIndex, inputString);
+
+        for (String word : result) {
+            System.out.println(word);
+        }
 
         return "redirect:/crossword-solver/home";
     }
