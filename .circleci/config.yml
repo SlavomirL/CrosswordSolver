@@ -12,8 +12,8 @@ jobs:
           git:
             url: "https://github.com/SlavomirL/CrosswordSolver.git"  # Replace with your actual GitHub repository URL
 
-      # Install MySQL client for database-related tasks
-      - run: choco install mysql -y
+      name: "Start SQL"
+          command: docker-compose -f ./CrosswordSolver/docker-compose.yaml up -d mysql-server
 
       # Cache Gradle dependencies to speed up subsequent builds
       - restore_cache:
