@@ -1,0 +1,38 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11-jdk
+   
+    working_directory: /c/Users/slavo/Desktop/portfolio/CrosswordSolver
+
+    steps:
+      - checkout
+
+      # Install MySQL client for database-related tasks
+      - run: choco install mysql -y
+
+      # Cache Gradle dependencies to speed up subsequent builds
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "build.gradle" }}
+            - v1-dependencies-
+
+      - run: ./gradlew.bat dependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+
+      # Run Gradle build and tests
+      - run:
+          name: Run Gradle build and tests
+          command: ./gradlew.bat build --no-daemon
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
