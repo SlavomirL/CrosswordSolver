@@ -3,8 +3,8 @@ package com.crosswordsolver.controllers;
 import com.crosswordsolver.services.CrosswordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +23,7 @@ public class HomeController {
 
     @PostMapping("/home")
     public String selectWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength,
-                                   @RequestParam(name = "letters") List<String> letters, RedirectAttributes redirectAttributes) throws IOException {
+                                   @RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
 
         String[] wordList = crosswordService.loadFileContent();
         String inputString = crosswordService.buildString(letters);
@@ -33,11 +33,9 @@ public class HomeController {
 
         List<String> result = crosswordService.findWords(wordList, lowerIndex, upperIndex, inputString);
 
-        for (String word : result) {
-            System.out.println(word);
-        }
+        model.addAttribute("resultWords", result);
 
-        return "redirect:/crossword-solver/home";
+        return "home-view";
     }
 
 }

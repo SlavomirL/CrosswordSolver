@@ -1,0 +1,67 @@
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+}
+
+#textInputFields {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#textInputFields input[type="text"] {
+    width: 30px;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#submitButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#submitButton:hover {
+    background-color: #45a049;
+}
+
+.length-label {
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+}
+
+.result-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.column {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.column p {
+    margin-bottom: 5px;
+}

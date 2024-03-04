@@ -12,20 +12,85 @@
     <h1>So you want to find a word without effort?</h1>
     <p>To start, tell me how many letters your desired word consists of.</p>
     <form name="wordLengthSelector" id="wordLengthForm" action="/crossword-solver/home" method="post">
-        <input type="radio" id="length3" name="wordLength" value="3" style="display: none;" onclick="toggleSubmitButton()">
-        <label for="length3"
-               style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">3</label><br>
 
-        <input type="radio" id="length4" name="wordLength" value="4" style="display: none;" onclick="toggleSubmitButton()">
-        <label for="length4"
-               style="display: inline-block; cursor: pointer; margin-bottom: 5px; padding: 5px 10px; border: 1px solid #ccc;">4</label><br>
+        <input type="radio" id="length3" name="wordLength" value="3" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length3" class="length-label">3</label>
+
+        <input type="radio" id="length4" name="wordLength" value="4" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length4" class="length-label">4</label>
+
+        <input type="radio" id="length5" name="wordLength" value="5" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length5" class="length-label">5</label>
+
+        <input type="radio" id="length6" name="wordLength" value="6" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length6" class="length-label">6</label>
+
+        <input type="radio" id="length7" name="wordLength" value="7" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length7" class="length-label">7</label>
+
+        <input type="radio" id="length8" name="wordLength" value="8" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length8" class="length-label">8</label>
+
+        <input type="radio" id="length9" name="wordLength" value="9" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length9" class="length-label">9</label>
+
+        <input type="radio" id="length10" name="wordLength" value="10" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length10" class="length-label">10</label>
+
+        <input type="radio" id="length11" name="wordLength" value="11" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length11" class="length-label">11</label>
+
+        <input type="radio" id="length12" name="wordLength" value="12" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length12" class="length-label">12</label>
+
+        <input type="radio" id="length13" name="wordLength" value="13" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length13" class="length-label">13</label>
+
+        <input type="radio" id="length14" name="wordLength" value="14" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length14" class="length-label">14</label>
+
+        <input type="radio" id="length15" name="wordLength" value="15" style="display: none;"
+               onclick="toggleSubmitButton()">
+        <label for="length15" class="length-label">15</label>
 
         <div id="textInputFields"></div>
-        <button id="submitButton" style="display: none"  type="submit">Confirm</button>
+
+        <button id="submitButton" style="display: none" type="submit">Confirm</button>
 
 
     </form>
     <div th:if="${stringToShow != null}" th:text="${stringToShow}"></div>
+
+    <div class="result-box">
+        <div class="column"
+             th:each="columnIndex : ${#numbers.sequence(1, (resultWords == null or resultWords.isEmpty()) ? 1 : (resultWords.size() / 5) + 1)}">
+            <div th:each="word : ${resultWords != null ? resultWords.subList((columnIndex - 1) * 5, ((columnIndex * 5) < resultWords.size()) ? (columnIndex * 5) : resultWords.size()) : {}}">
+                <p th:text="${word}"></p>
+            </div>
+        </div>
+    </div>
+
+<!--    <div class="result-box">-->
+<!--        <div class="column"-->
+<!--             th:each="columnIndex : ${#numbers.sequence(1, (resultWords == null or resultWords.isEmpty()) ? 1 : (resultWords.size() / 5) + 1)}">-->
+<!--            <div th:each="word : ${resultWords != null ? resultWords.subList((columnIndex - 1) * 5, ((columnIndex * 5) < resultWords.size()) ? (columnIndex * 5) : resultWords.size()) : {}}">-->
+<!--                <p th:text="${word}"></p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
 </div>
 
 <script>
@@ -63,19 +128,15 @@
         var selected = false;
 
         for (var i = 0; i < radios.length; i++) {
-            console.log("start looping")
             if (radios[i].checked) {
-                console.log("found something")
                 selected = true;
                 break;
             }
         }
 
         if (selected) {
-            console.log("everything works as expected")
             submitButton.style.display = "block";
         } else {
-            console.log("something went wrong");
             submitButton.style.display = "none";
         }
     }
