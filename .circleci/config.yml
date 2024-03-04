@@ -12,8 +12,8 @@ jobs:
           git:
             url: "https://github.com/SlavomirL/CrosswordSolver.git"  # Replace with your actual GitHub repository URL
 
-      name: "Start SQL"
-          command: docker-compose -f ./CrosswordSolver/docker-compose.yaml up -d mysql-server
+      - name: "Start SQL"  # Corrected indentation
+        command: docker-compose -f ./CrosswordSolver/docker-compose.yaml up -d mysql-server  # Corrected indentation
 
       # Cache Gradle dependencies to speed up subsequent builds
       - restore_cache:
