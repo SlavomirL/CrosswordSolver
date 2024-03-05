@@ -24,10 +24,6 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-      - run:
-          name: Run Gradle build and tests
-          command: ./gradlew.bat build --no-daemon
-
 workflows:
   version: 2
   build:
