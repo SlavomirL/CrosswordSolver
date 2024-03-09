@@ -1,6 +1,7 @@
 package com.crosswordsolver.controllers;
 
-import com.crosswordsolver.services.CrosswordService;
+import com.crosswordsolver.services.CrosswordServiceImpl;
+import com.crosswordsolver.services.SolverServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,31 +12,26 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/crossword-solver")
+@RequestMapping("/words-solver")
 public class HomeController {
 
-    private final CrosswordService crosswordService;
+    private final CrosswordServiceImpl crosswordServiceImpl;
+    private final SolverServiceImpl solverServiceImpl;
 
     @GetMapping("/home")
     public String displayCrosswordSolverHomePage() {
-        return "home-view";
+        return "crossword-view";
     }
 
-    @PostMapping("/home")
+    @PostMapping("/crossword")
     public String selectWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength,
                                    @RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
 
-        String[] wordList = crosswordService.loadFileContent();
-        String inputString = crosswordService.buildString(letters);
-
-        int lowerIndex = crosswordService.findLowerIndex(wordList, wordLength, 0, crosswordService.loadFileContent().length - 1);
-        int upperIndex = crosswordService.findUpperIndex(wordList, wordLength, 0, crosswordService.loadFileContent().length - 1);
-
-        List<String> result = crosswordService.findWords(wordList, lowerIndex, upperIndex, inputString);
+        List<String> result = solverServiceImpl.solveCrossword(wordLength, letters);
 
         model.addAttribute("resultWords", result);
 
-        return "home-view";
+        return "crossword-view";
     }
 
 }
