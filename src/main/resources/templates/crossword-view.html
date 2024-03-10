@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/style.css}"/>
-    <title>Crossword Solver App</title>
+    <title>Crossword Solver</title>
 </head>
 
 <body>
 <div class="content">
-    <h1>So you want to find a word without effort?</h1>
+    <h1>So you want to find a word that would fit nicely into your crossword?</h1>
     <p>To start, tell me how many letters your desired word consists of.</p>
     <form name="wordLengthSelector" id="wordLengthForm" action="/words-solver/crossword" method="post">
 
@@ -68,29 +68,20 @@
         <div id="textInputFields"></div>
 
         <button id="submitButton" style="display: none" type="submit">Confirm</button>
-
-
     </form>
-    <div th:if="${stringToShow != null}" th:text="${stringToShow}"></div>
 
     <div class="result-box">
         <div class="column"
-             th:each="columnIndex : ${#numbers.sequence(1, (resultWords == null or resultWords.isEmpty()) ? 1 : (resultWords.size() / 5) + 1)}">
-            <div th:each="word : ${resultWords != null ? resultWords.subList((columnIndex - 1) * 5, ((columnIndex * 5) < resultWords.size()) ? (columnIndex * 5) : resultWords.size()) : {}}">
+             th:each="columnIndex : ${#numbers.sequence(1, (crosswordResult == null or crosswordResult.isEmpty()) ? 1 : (crosswordResult.size() / 5) + 1)}">
+            <div th:each="word : ${crosswordResult != null ? crosswordResult.subList((columnIndex - 1) * 5, ((columnIndex * 5) < crosswordResult.size()) ? (columnIndex * 5) : crosswordResult.size()) : {}}">
                 <p th:text="${word}"></p>
             </div>
         </div>
     </div>
 
-<!--    <div class="result-box">-->
-<!--        <div class="column"-->
-<!--             th:each="columnIndex : ${#numbers.sequence(1, (resultWords == null or resultWords.isEmpty()) ? 1 : (resultWords.size() / 5) + 1)}">-->
-<!--            <div th:each="word : ${resultWords != null ? resultWords.subList((columnIndex - 1) * 5, ((columnIndex * 5) < resultWords.size()) ? (columnIndex * 5) : resultWords.size()) : {}}">-->
-<!--                <p th:text="${word}"></p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
+</div>
+<div>
+    <a href="http://localhost:8080/words-solver/home">Back to home page</a>
 </div>
 
 <script>

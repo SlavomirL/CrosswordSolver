@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <title>Crossword Solver</title>
+</head>
+
+<body>
+<div class="content">
+    <h1>So you want to find a word that would fit nicely into your crossword?</h1>
+    <p>To start, enter letters. You can enter up to 10 letters.</p>
+    <form name="wordInputForm" id="wordInputForm" action="/words-solver/word-builder" method="post">
+
+        <div id="textInputFields"></div>
+        <div id="toast">Please enter only alphabet letters.</div>
+
+        <button id="submitButton" style="display: none" type="submit">Confirm</button>
+    </form>
+
+    <div class="result-box">
+        <div class="column"
+             th:each="columnIndex : ${#numbers.sequence(1, (builderResult == null or builderResult.isEmpty()) ? 1 : (builderResult.size() / 5) + 1)}">
+            <div th:each="word : ${builderResult != null ? builderResult.subList((columnIndex - 1) * 5, ((columnIndex * 5) < builderResult.size()) ? (columnIndex * 5) : builderResult.size()) : {}}">
+                <p th:text="${word}"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+    <a href="http://localhost:8080/words-solver/home">Back to home page</a>
+</div>
+
+<script>
+    const maxInputs = 10;
+
+    function createTextInputField() {
+        const container = document.getElementById('textInputFields');
+        const inputs = document.getElementsByName("letters");
+        const lastInput = inputs[inputs.length - 1];
+
+        if (!lastInput || lastInput.value.trim() !== "") {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'letters';
+            input.maxLength = 1;
+            input.pattern = '[A-Za-z]'; // Only allow alphabet letters
+            input.addEventListener('input', function (event) {
+                if (!/^[A-Za-z]+$/.test(event.target.value)) {
+                    event.target.value = 'A';
+                    // alert('Please enter only alphabet letters.');
+                    showToast('Please enter only alphabet letters.');
+                }
+                toggleSubmitButton();
+            });
+            container.appendChild(input);
+        }
+    }
+
+    function toggleSubmitButton() {
+        var inputs = document.getElementsByName("letters");
+        var submitButton = document.getElementById("submitButton");
+        var hasValue = false;
+
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].value.trim() !== "") {
+                hasValue = true;
+                break;
+            }
+        }
+
+        if (hasValue) {
+            submitButton.style.display = "block";
+        } else {
+            submitButton.style.display = "none";
+        }
+
+        const lastInput = inputs[inputs.length - 1];
+        if (!lastInput || (lastInput.value.trim() !== "" && inputs.length < maxInputs)) {
+            createTextInputField();
+        }
+    }
+
+    function showToast(message) {
+        var toast = document.getElementById("toast");
+        toast.innerHTML = message;
+        toast.className = "show";
+        setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+
+    createTextInputField();
+
+    document.getElementById('textInputFields').addEventListener('input', function (event) {
+        const inputs = document.getElementsByName("letters");
+        const inputValue = event.target.value.trim();
+        if (event.inputType === "deleteContentBackward" || event.inputType === "deleteContentForward") {
+            for (let i = 0; i < inputs.length - 1; i++) {
+                if (!inputs[i].value.trim()) {
+                    inputs[i].remove();
+                    if (inputs.length === maxInputs - 1) {
+                        createTextInputField();
+                    }
+                    break;
+                }
+            }
+        }
+
+        if (!inputs[inputs.length - 1].value.trim() && inputValue && inputs.length < 10) {
+            createTextInputField();
+        }
+    });
+
+</script>
+</body>
+</html>

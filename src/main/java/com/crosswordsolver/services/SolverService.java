@@ -6,4 +6,5 @@ public interface SolverService {
 
     List<String> solveCrossword(Integer wordLength, List<String> letters);
 
+    List<String> buildWord(List<String> letters);
 }

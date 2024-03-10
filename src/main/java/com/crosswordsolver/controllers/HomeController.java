@@ -1,7 +1,6 @@
 package com.crosswordsolver.controllers;
 
-import com.crosswordsolver.services.CrosswordServiceImpl;
-import com.crosswordsolver.services.SolverServiceImpl;
+import com.crosswordsolver.services.SolverService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,23 +14,42 @@ import java.util.List;
 @RequestMapping("/words-solver")
 public class HomeController {
 
-    private final CrosswordServiceImpl crosswordServiceImpl;
-    private final SolverServiceImpl solverServiceImpl;
+    private final SolverService solverService;
 
     @GetMapping("/home")
     public String displayCrosswordSolverHomePage() {
+        return "home-view";
+    }
+
+    @GetMapping("/crossword")
+    public String getCrosswordView() {
         return "crossword-view";
     }
 
     @PostMapping("/crossword")
-    public String selectWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength,
-                                   @RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
+    public String crosswordWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength,
+                                      @RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
 
-        List<String> result = solverServiceImpl.solveCrossword(wordLength, letters);
+        List<String> crosswordResult = solverService.solveCrossword(wordLength, letters);
 
-        model.addAttribute("resultWords", result);
+        model.addAttribute("crosswordResult", crosswordResult);
 
         return "crossword-view";
+    }
+
+    @GetMapping("/word-builder")
+    public String getBuilderView() {
+        return "word-builder-view";
+    }
+
+    @PostMapping("/word-builder")
+    public String wordBuilderWordLength(@RequestParam(name = "letters") List<String> letters, Model model) {
+        System.out.println("controller invoked jaaaaaahjajajaaaaaaaaaaaaaa");
+        List<String> builderResult = solverService.buildWord(letters);
+
+        model.addAttribute("builderResult", builderResult);
+
+        return "word-builder-view";
     }
 
 }

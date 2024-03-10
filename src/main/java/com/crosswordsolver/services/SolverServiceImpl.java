@@ -9,14 +9,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SolverServiceImpl implements SolverService {
 
-    private final CrosswordServiceImpl crosswordServiceImpl;
+    private final CrosswordService crosswordService;
+    private final WordBuilderService wordBuilderService;
 
     @Override
     public List<String> solveCrossword(Integer wordLength, List<String> letters) {
-        String inputString = crosswordServiceImpl.buildString(letters);
-        int lowerIndex = crosswordServiceImpl.findLowerIndex(wordLength);
-        int upperIndex = crosswordServiceImpl.findUpperIndex(wordLength);
-        return crosswordServiceImpl.findWords(lowerIndex, upperIndex, inputString);
+        String inputString = crosswordService.buildString(letters);
+        int lowerIndex = crosswordService.findLowerIndex(wordLength);
+        int upperIndex = crosswordService.findUpperIndex(wordLength);
+        return crosswordService.findWords(lowerIndex, upperIndex, inputString);
+    }
+
+    @Override
+    public List<String> buildWord(List<String> letters) {
+        System.out.println("this is invoked");
+        System.out.println(letters.toString());
+        return wordBuilderService.findWords(letters);
     }
 
 }
