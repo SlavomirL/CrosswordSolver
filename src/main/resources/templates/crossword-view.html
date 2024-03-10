@@ -94,11 +94,30 @@
             input.type = 'text';
             input.name = 'letters';
             input.maxLength = 1;
-            input.addEventListener('input', updateString);
+            input.addEventListener('input', function(event) {
+                const inputValue = event.target.value.trim();
+                if (!/^[A-Za-z]$/.test(inputValue)) {
+                    event.target.value = 'A';
+                    showToast('Please enter only alphabet letters.');
+                }
+                updateString();
+            });
             container.appendChild(input);
             container.appendChild(document.createElement('br'));
         }
     }
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(function() {
+            document.body.removeChild(toast);
+        }, 3000);
+    }
+
 
     function updateString() {
         const inputs = document.getElementsByName('letters');
