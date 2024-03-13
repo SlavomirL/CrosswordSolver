@@ -106,4 +106,5 @@ public class CrosswordServiceImpl implements CrosswordService {
         }
         return foundWords;
     }
+
 }

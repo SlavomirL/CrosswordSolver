@@ -3,6 +3,7 @@ package com.crosswordsolver.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -22,9 +23,20 @@ public class SolverServiceImpl implements SolverService {
 
     @Override
     public List<String> buildWord(List<String> letters) {
-        System.out.println("this is invoked");
-        System.out.println(letters.toString());
-        return wordBuilderService.findWords(letters);
+        List<String> onlyLetters = removeBlanks(letters);
+        return wordBuilderService.findWords(onlyLetters);
+    }
+
+    @Override
+    public List<String> removeBlanks(List<String> letters) {
+        Iterator<String> iterator = letters.iterator();
+        while (iterator.hasNext()) {
+            String letter = iterator.next();
+            if (letter.isBlank()) {
+                iterator.remove();
+            }
+        }
+        return letters;
     }
 
 }

@@ -2,12 +2,8 @@ package com.crosswordsolver.services;
 
 import com.crosswordsolver.components.Trie;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,47 +11,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WordBuilderServiceImpl implements WordBuilderService {
 
-    private Trie trie;
-    private String[] wordList;
-
-    public WordBuilderServiceImpl(List<String> words) throws IOException {
-        trie = new Trie();
-        wordList = loadFileContent();
-        for (String word : words) {
-            trie.insert(word);
-        }
-    }
-
-    @Override
-    public String[] loadFileContent() throws IOException {
-        ClassPathResource resource = new ClassPathResource("datasource/sorted_words_alpha_max15.txt");
-        InputStreamReader reader = new InputStreamReader(resource.getInputStream());
-        String fileContent = FileCopyUtils.copyToString(reader);
-        return fileContent.split("\\r?\\n");
-    }
+    private final Trie trie;
 
     @Override
     public List<String> findWords(List<String> letters) {
         List<String> result = new ArrayList<>();
-        backtrack(letters, 0, new StringBuilder(), result);
+        findWordsUtil(letters, new ArrayList<>(), result);
         return result;
     }
 
-
-    @Override
-    public void backtrack(List<String> letters, int index, StringBuilder path, List<String> result) {
-        int wordLength = letters.size();
-        if (path.length() == wordLength) {
-            if (trie.search(path.toString())) {
-                result.add(path.toString());
+    private void findWordsUtil(List<String> remainingLetters, List<String> currentWord, List<String> result) {
+        if (remainingLetters.isEmpty()) {
+            String word = String.join("", currentWord);
+            if (trie.search(word) && !result.contains(word)) {
+                result.add(word);
             }
             return;
         }
 
-        for (int i = index; i < letters.size(); i++) {
-            path.append(letters.get(i));
-            backtrack(letters, i + 1, path, result);
-            path.deleteCharAt(path.length() - 1); // Backtrack
+        for (int i = 0; i < remainingLetters.size(); i++) {
+            String letter = remainingLetters.get(i);
+            currentWord.add(letter);
+            List<String> newRemaining = new ArrayList<>(remainingLetters);
+            newRemaining.remove(i);
+            findWordsUtil(newRemaining, currentWord, result);
+            currentWord.remove(currentWord.size() - 1);
         }
     }
 

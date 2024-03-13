@@ -44,7 +44,6 @@ public class HomeController {
 
     @PostMapping("/word-builder")
     public String wordBuilderWordLength(@RequestParam(name = "letters") List<String> letters, Model model) {
-        System.out.println("controller invoked jaaaaaahjajajaaaaaaaaaaaaaa");
         List<String> builderResult = solverService.buildWord(letters);
 
         model.addAttribute("builderResult", builderResult);

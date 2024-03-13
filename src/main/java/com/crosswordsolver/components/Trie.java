@@ -2,10 +2,13 @@ package com.crosswordsolver.components;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
+@Component
 public class Trie {
+
     private TrieNode root;
 
     public Trie() {
@@ -22,6 +25,7 @@ public class Trie {
             node = node.getChildren()[index];
         }
         node.setEndOfWord(true);
+        node.setWord(word);
     }
 
     public boolean search(String word) {
@@ -35,4 +39,5 @@ public class Trie {
         }
         return node != null && node.isEndOfWord();
     }
+
 }
