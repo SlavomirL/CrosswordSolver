@@ -44,11 +44,25 @@ public class HomeController {
 
     @PostMapping("/word-builder")
     public String wordBuilderWordLength(@RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
-        List<String> builderResult = solverService.buildWord(letters);
+        List<String> builderResult = solverService.buildWords(letters);
 
         model.addAttribute("builderResult", builderResult);
 
         return "word-builder-view";
+    }
+
+    @GetMapping("/all-word-builder")
+    public String getAllBuilderView() {
+        return "all-word-builder-view";
+    }
+
+    @PostMapping("/all-word-builder")
+    public String allWordBuilderWordLength(@RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
+        List<String> builderResult = solverService.buildAllWords(letters);
+
+        model.addAttribute("builderResult", builderResult);
+
+        return "all-word-builder-view";
     }
 
 }

@@ -9,6 +9,9 @@ public interface WordBuilderService {
 
     List<String> findWords(List<String> letters) throws IOException;
 
+    List<String> findAllWords(List<String> letters);
+
     void findWordsUtil(List<String> remainingLetters, List<String> currentWord, List<String> result);
 
+    void findAllWordsUtil(List<String> remainingLetters, List<String> currentWord, List<String> result);
 }

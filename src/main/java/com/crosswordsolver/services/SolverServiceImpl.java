@@ -23,9 +23,15 @@ public class SolverServiceImpl implements SolverService {
     }
 
     @Override
-    public List<String> buildWord(List<String> letters) throws IOException {
+    public List<String> buildWords(List<String> letters) throws IOException {
         List<String> onlyLetters = removeBlanks(letters);
         return wordBuilderService.findWords(onlyLetters);
+    }
+
+    @Override
+    public List<String> buildAllWords(List<String> letters) throws IOException {
+        List<String> onlyLetters = removeBlanks(letters);
+        return wordBuilderService.findAllWords(onlyLetters);
     }
 
     @Override

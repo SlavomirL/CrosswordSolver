@@ -7,8 +7,9 @@ public interface SolverService {
 
     List<String> solveCrossword(Integer wordLength, List<String> letters);
 
-    List<String> buildWord(List<String> letters) throws IOException;
+    List<String> buildWords(List<String> letters) throws IOException;
 
     List<String> removeBlanks(List<String> letters);
 
+    List<String> buildAllWords(List<String> letters) throws IOException;
 }

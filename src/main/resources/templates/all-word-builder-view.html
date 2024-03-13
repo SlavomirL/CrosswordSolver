@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/style.css}"/>
-    <title>Words Builder</title>
+    <title>All Words Builder</title>
 </head>
 
 <body>
 <div class="content">
-    <h1>So you want to find all words that can be built using all your letters?</h1>
-    <p>To start, enter letters. You can enter up to 10 letters.</p>
-    <form name="wordInputForm" id="wordInputForm" action="/words-solver/word-builder" method="post">
+    <h1>So you want to find all words that can be built using some or all your letters?</h1>
+    <p>To start, enter letters. You can enter up to 7 letters.</p>
+    <form name="wordInputForm" id="wordInputForm" action="/words-solver/all-word-builder" method="post">
 
         <div id="textInputFields"></div>
         <div id="toast">Please enter only alphabet letters.</div>
@@ -34,7 +34,7 @@
 </div>
 
 <script>
-    const maxInputs = 10;
+    const maxInputs = 7;
 
     function createTextInputField() {
         const container = document.getElementById('textInputFields');
