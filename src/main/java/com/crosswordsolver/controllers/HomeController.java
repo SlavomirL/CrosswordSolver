@@ -28,8 +28,7 @@ public class HomeController {
 
     @PostMapping("/crossword")
     public String crosswordWordLength(@RequestParam(name = "wordLength", required = false) Integer wordLength,
-                                      @RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
-
+                                      @RequestParam(name = "letters") List<String> letters, Model model) {
         List<String> crosswordResult = solverService.solveCrossword(wordLength, letters);
 
         model.addAttribute("crosswordResult", crosswordResult);

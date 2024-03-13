@@ -16,7 +16,8 @@ public class SolverServiceImpl implements SolverService {
 
     @Override
     public List<String> solveCrossword(Integer wordLength, List<String> letters) {
-        String inputString = crosswordService.buildString(letters);
+        List<String> allLowercase = toLowercase(letters);
+        String inputString = crosswordService.buildString(allLowercase);
         int lowerIndex = crosswordService.findLowerIndex(wordLength);
         int upperIndex = crosswordService.findUpperIndex(wordLength);
         return crosswordService.findWords(lowerIndex, upperIndex, inputString);
@@ -53,7 +54,6 @@ public class SolverServiceImpl implements SolverService {
             String letter = letters.get(i).toLowerCase();
             letters.set(i, letter);
         }
-        System.out.println(letters.toString());
         return letters;
     }
 
