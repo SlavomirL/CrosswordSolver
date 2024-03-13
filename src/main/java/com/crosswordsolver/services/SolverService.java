@@ -12,4 +12,8 @@ public interface SolverService {
     List<String> removeBlanks(List<String> letters);
 
     List<String> buildAllWords(List<String> letters) throws IOException;
+
+    List<String> toLowercase(List<String> letters);
+
+    List<String> prepareLetters(List<String> letters);
 }
