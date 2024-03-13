@@ -1,30 +1,22 @@
 package com.crosswordsolver.services;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CrosswordServiceImpl implements CrosswordService {
 
+    private final FileReaderService fileReaderService;
     private final String[] wordList;
 
-    public CrosswordServiceImpl() throws IOException {
-        this.wordList = loadFileContent();
-    }
-
-    @Override
-    public String[] loadFileContent() throws IOException {
-        ClassPathResource resource = new ClassPathResource("datasource/sorted_words_alpha_max15.txt");
-        InputStreamReader reader = new InputStreamReader(resource.getInputStream());
-        String fileContent = FileCopyUtils.copyToString(reader);
-        return fileContent.split("\\r?\\n");
+    @Autowired
+    public CrosswordServiceImpl(FileReaderService fileReaderService) throws IOException {
+        this.fileReaderService = fileReaderService;
+        this.wordList = fileReaderService.loadFileContent();
     }
 
     @Override

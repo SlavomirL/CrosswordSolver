@@ -1,11 +1,8 @@
 package com.crosswordsolver.services;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface CrosswordService {
-
-    String[] loadFileContent() throws IOException;
 
     String buildString(List<String> letters);
 

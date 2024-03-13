@@ -1,33 +1,25 @@
 package com.crosswordsolver.services;
 
-import com.crosswordsolver.components.Trie;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 @Service
+@RequiredArgsConstructor
 public class FileReaderServiceImpl implements FileReaderService {
 
-    private final Trie trie;
+    private final static String FILE_PATH = "datasource/sorted_words_alpha_max15.txt";
 
-    @Autowired
-    public FileReaderServiceImpl(Trie trie) {
-        this.trie = trie;
-        try {
-            ClassPathResource resource = new ClassPathResource("datasource/sorted_words_alpha_max15.txt");
-            InputStreamReader reader = new InputStreamReader(resource.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                trie.insert(line.trim());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public String[] loadFileContent() throws IOException {
+        ClassPathResource resource = new ClassPathResource(FILE_PATH);
+        InputStreamReader reader = new InputStreamReader(resource.getInputStream());
+        String fileContent = FileCopyUtils.copyToString(reader);
+        return fileContent.split("\\r?\\n");
     }
 
 }

@@ -43,7 +43,7 @@ public class HomeController {
     }
 
     @PostMapping("/word-builder")
-    public String wordBuilderWordLength(@RequestParam(name = "letters") List<String> letters, Model model) {
+    public String wordBuilderWordLength(@RequestParam(name = "letters") List<String> letters, Model model) throws IOException {
         List<String> builderResult = solverService.buildWord(letters);
 
         model.addAttribute("builderResult", builderResult);
