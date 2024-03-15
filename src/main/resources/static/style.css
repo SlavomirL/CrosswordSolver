@@ -111,3 +111,11 @@ label {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
 }
+
+
+img.resized {
+    width: 15%; /* Occupies 1/10 of the page width */
+    height: 15%; /* Replace 300px with the desired height in pixels */
+    max-width: none; /* Disable max-width constraint */
+    max-height: none; /* Disable max-height constraint */
+}
