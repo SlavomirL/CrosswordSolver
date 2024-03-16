@@ -26,7 +26,6 @@ public class SolverServiceImpl implements SolverService {
     @Override
     public List<String> buildWords(List<String> letters) throws IOException {
         List<String> onlyLetters = prepareLetters(letters);
-        System.out.println(onlyLetters.toString());
         return wordBuilderService.findWords(onlyLetters);
     }
 
