@@ -94,11 +94,13 @@
             input.type = 'text';
             input.name = 'letters';
             input.maxLength = 1;
-            input.addEventListener('input', function(event) {
+            input.addEventListener('input', function (event) {
                 const inputValue = event.target.value.trim();
-                if (!/^[A-Za-z]$/.test(inputValue)) {
-                    event.target.value = 'A';
-                    showToast('Please enter only alphabet letters.');
+                if (!/^[A-Za-z]+$/.test(inputValue)) {
+                    if (event.inputType !== "deleteContentBackward" && event.inputType !== "deleteContentForward") {
+                        event.target.value = 'A';
+                        showToast('Please enter only alphabet letters.');
+                    }
                 }
                 updateString();
             });

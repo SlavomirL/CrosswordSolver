@@ -49,8 +49,10 @@
             input.pattern = '[A-Za-z]';
             input.addEventListener('input', function (event) {
                 if (!/^[A-Za-z]+$/.test(event.target.value)) {
-                    event.target.value = 'A';
-                    showToast('Please enter only alphabet letters.');
+                    if (event.inputType !== "deleteContentBackward" && event.inputType !== "deleteContentForward") {
+                        event.target.value = 'A';
+                        showToast('Please enter only alphabet letters.');
+                    }
                 }
                 toggleSubmitButton();
             });
