@@ -13,7 +13,13 @@ public interface SolverService {
 
     List<String> buildAllWords(List<String> letters) throws IOException;
 
-    List<String> toLowercase(List<String> letters);
+    List<String> lettersToLowerCase(List<String> letters);
 
-    List<String> prepareLetters(List<String> letters);
+    List<String> prepareOutput(List<String> words);
+
+    List<String> wordsToUpperCase(List<String> words);
+
+    List<String> prepareInput(List<String> letters);
+
+    List<String> sortOutput(List<String> words);
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,23 +17,26 @@ public class SolverServiceImpl implements SolverService {
 
     @Override
     public List<String> solveCrossword(Integer wordLength, List<String> letters) {
-        List<String> allLowercase = toLowercase(letters);
+        List<String> allLowercase = lettersToLowerCase(letters);
         String inputString = crosswordService.buildString(allLowercase);
         int lowerIndex = crosswordService.findLowerIndex(wordLength);
         int upperIndex = crosswordService.findUpperIndex(wordLength);
-        return crosswordService.findWords(lowerIndex, upperIndex, inputString);
+        List<String> unfinishedResult = crosswordService.findWords(lowerIndex, upperIndex, inputString);
+        return prepareOutput(unfinishedResult);
     }
 
     @Override
     public List<String> buildWords(List<String> letters) throws IOException {
-        List<String> onlyLetters = prepareLetters(letters);
-        return wordBuilderService.findWords(onlyLetters);
+        List<String> onlyLetters = prepareInput(letters);
+        List<String> unfinishedResult = wordBuilderService.findWords(onlyLetters);
+        return prepareOutput(unfinishedResult);
     }
 
     @Override
     public List<String> buildAllWords(List<String> letters) throws IOException {
-        List<String> onlyLetters = prepareLetters(letters);
-        return wordBuilderService.findAllWords(onlyLetters);
+        List<String> onlyLetters = prepareInput(letters);
+        List<String> unfinishedResult = wordBuilderService.findAllWords(onlyLetters);
+        return prepareOutput(unfinishedResult);
     }
 
     @Override
@@ -48,19 +52,32 @@ public class SolverServiceImpl implements SolverService {
     }
 
     @Override
-    public List<String> toLowercase(List<String> letters) {
-        for (int i = 0; i < letters.size(); i++) {
-            String letter = letters.get(i).toLowerCase();
-            letters.set(i, letter);
-        }
+    public List<String> lettersToLowerCase(List<String> letters) {
+        letters.replaceAll(String::toLowerCase);
         return letters;
     }
 
     @Override
-    public List<String> prepareLetters(List<String> letters) {
+    public List<String> prepareInput(List<String> letters) {
         List<String> noBlanks = removeBlanks(letters);
-        List<String> allLowercase = toLowercase(noBlanks);
-        return allLowercase;
+        return lettersToLowerCase(noBlanks);
+    }
+
+    @Override
+    public List<String> prepareOutput(List<String> words) {
+        return sortOutput(wordsToUpperCase(words));
+    }
+
+    @Override
+    public List<String> wordsToUpperCase(List<String> words) {
+        words.replaceAll(String::toUpperCase);
+        return words;
+    }
+
+    @Override
+    public List<String> sortOutput(List<String> words) {
+        words.sort(Comparator.comparing(String::length).thenComparing(Comparator.naturalOrder()));
+        return words;
     }
 
 }
