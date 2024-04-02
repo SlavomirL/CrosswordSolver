@@ -12,10 +12,10 @@
 <div class="link-container">
     <div class="link-sub-container">
         <div class="link-text-sub-container">
-        <a href="http://localhost:8080/words-solver/crossword">Crossword Solver</a>
+        <a th:href="@{/crossword}">Crossword Solver</a>
         </div>
         <div class="link-img-sub-container">
-            <a class="left-image" href="http://localhost:8080/words-solver/crossword"><img src="/crossword_example.png" alt="Crossword Solver"/></a>
+            <a class="left-image" th:href="@{/crossword}"><img src="/crossword_example.png" alt="Crossword Solver"/></a>
             <img class="center-image" src="/crossword_input.png" alt="Crossword Input"/>
             <img class="right-image" src="/crossword_output.png" alt="Crossword Output"/>
         </div>
@@ -23,11 +23,11 @@
 
     <div class="link-sub-container">
         <div class="link-text-sub-container">
-        <a href="http://localhost:8080/words-solver/word-builder">Fixed Length
+        <a th:href="@{/word-builder}">Fixed Length
             Word Builder</a>
         </div>
         <div class="link-img-sub-container">
-            <a class="left-image" href="http://localhost:8080/words-solver/word-builder"><img src="/word_builder_example.png" alt="Fixed Length Word Builder"/></a>
+            <a class="left-image" th:href="@{/word-builder}"><img src="/word_builder_example.png" alt="Fixed Length Word Builder"/></a>
             <img class="center-image" src="/word_builder_input.png" alt="Word Builder Input"/>
             <img class="right-image" src="/fixed_word_builder_output.png" alt="Fixed Length Word Builder Output"/>
         </div>
@@ -36,11 +36,11 @@
 
     <div class="link-sub-container">
         <div class="link-text-sub-container">
-        <a href="http://localhost:8080/words-solver/all-word-builder">Flexible Length
+        <a th:href="@{/all-word-builder}">Flexible Length
             Word Builder</a>
         </div>
         <div class="link-img-sub-container">
-            <a class="left-image" href="http://localhost:8080/words-solver/all-word-builder"><img src="/word_builder_example.png" alt="Flexible Length Words Builder"/></a>
+            <a class="left-image" th:href="@{/all-word-builder}"><img src="/word_builder_example.png" alt="Flexible Length Words Builder"/></a>
             <img class="center-image" src="/word_builder_input.png" alt="Word Builder Input"/>
             <img class="right-image" src="/flexible_word_builder_output.png" alt="Flexible Length Word Builder Output"/>
         </div>

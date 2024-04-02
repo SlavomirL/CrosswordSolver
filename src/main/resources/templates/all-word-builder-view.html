@@ -11,7 +11,7 @@
 <div class="content">
     <h2>So you want to find all words that can be built using some or all your letters?</h2>
     <p>To start, enter letters. You can enter up to 7 letters.</p>
-    <form name="wordInputForm" id="wordInputForm" action="/words-solver/all-word-builder" method="post">
+    <form name="wordInputForm" id="wordInputForm" action="/all-word-builder" method="post">
 
         <div id="textInputFields"></div>
         <div id="toast">Please enter only alphabet letters.</div>
@@ -30,7 +30,7 @@
 
 </div>
 <div class="home-page-link-container">
-    <a class="home-page-link" href="http://localhost:8080/words-solver/home">Back to home page</a>
+    <a class="home-page-link" th:href="@{/home}">Back to home page</a>
 </div>
 
 <script>

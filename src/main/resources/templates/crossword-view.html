@@ -11,7 +11,7 @@
 <div class="content">
     <h2>So you want to find a word that would fit nicely into your crossword?</h2>
     <p>To start, tell me how many letters your desired word consists of.</p>
-    <form name="wordLengthSelector" id="wordLengthForm" action="/words-solver/crossword" method="post">
+    <form name="wordLengthSelector" id="wordLengthForm" action="/crossword" method="post">
 
         <input type="radio" id="length3" name="wordLength" value="3" style="display: none;"
                onclick="toggleSubmitButton()">
@@ -81,7 +81,7 @@
 
 </div>
 <div class="home-page-link-container">
-    <a class="home-page-link" href="http://localhost:8080/words-solver/home">Back to home page</a>
+    <a class="home-page-link" th:href="@{/home}">Back to home page</a>
 </div>
 
 <script>

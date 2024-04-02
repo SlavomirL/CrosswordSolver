@@ -11,12 +11,11 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/words-solver")
 public class HomeController {
 
     private final SolverService solverService;
 
-    @GetMapping("/home")
+    @GetMapping({"/home", "/"})
     public String displayCrosswordSolverHomePage() {
         return "home-view";
     }
