@@ -3,18 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/style.css}"/>
-    <title>All Words Builder</title>
+    <link rel="stylesheet" th:href="@{/fix-style.css}"/>
+    <title>Words Builder</title>
 </head>
 
 <body>
 <div class="content">
-    <h2>So you want to find all words that can be built using some or all your letters?</h2>
-    <p>To start, enter letters. You can enter up to 7 letters.</p>
-    <form name="wordInputForm" id="wordInputForm" action="/all-word-builder" method="post">
+    <h2>So you want to find all words that can be built using all your letters?</h2>
+    <p>To start, enter letters. You can enter up to 10 letters.</p>
+    <form name="wordInputForm" id="wordInputForm" action="/word-builder" method="post">
 
         <div id="textInputFields"></div>
-        <div id="toast">Please enter only alphabet letters.</div>
 
         <button id="submitButton" style="display: none" type="submit">Confirm</button>
     </form>
@@ -34,7 +33,7 @@
 </div>
 
 <script>
-    const maxInputs = 7;
+    const maxInputs = 10;
 
     function createTextInputField() {
         const container = document.getElementById('textInputFields');
@@ -47,16 +46,17 @@
             input.name = 'letters';
             input.maxLength = 1;
             input.pattern = '[A-Za-z]';
+            input.autocomplete = 'off';
             input.addEventListener('input', function (event) {
-                if (!/^[A-Za-z]+$/.test(event.target.value)) {
+                if (!/^[A-Za-z]+$/.test(this.value)) {
                     if (event.inputType !== "deleteContentBackward" && event.inputType !== "deleteContentForward") {
                         event.target.value = 'A';
                         showToast('Please enter only alphabet letters.');
                     }
                 }
+                this.value = this.value.toUpperCase();
                 toggleSubmitButton();
             });
-
             container.appendChild(input);
         }
     }
@@ -86,10 +86,21 @@
     }
 
     function showToast(message) {
-        var toast = document.getElementById("toast");
-        toast.innerHTML = message;
-        toast.className = "show";
-        setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(function () {
+            toast.classList.add('show');
+        }, 100);
+
+        setTimeout(function () {
+            toast.classList.remove('show');
+            setTimeout(function () {
+                document.body.removeChild(toast);
+            }, 3000);
+        }, 3500);
     }
 
 

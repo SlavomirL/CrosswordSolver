@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" th:href="@{/crossword-style.css}"/>
     <title>Crossword Solver</title>
 </head>
 
@@ -95,16 +95,26 @@
             input.name = 'letters';
             input.maxLength = 1;
             input.placeholder = " ";
+            input.autocomplete = 'off';
 
             input.addEventListener('input', function () {
-                if (!/^[a-zA-Z]$/.test(this.value)) {
-                    this.value = 'A';
-                    showToast('Please enter only alphabet letters.');
+                if (/^[a-zA-Z]$/.test(this.value)) {
+                    this.value = this.value.toUpperCase();
+                    this.style.backgroundColor = "#b2f2bb";
+                    this.style.borderColor = "#41a654";
+                } else {
+                    if (this.value === '') {
+                        this.style.backgroundColor = "#ffc9c9";
+                        this.style.borderColor = "#df3030";
+                    } else {
+                        this.value = 'A';
+                        this.style.backgroundColor = "#b2f2bb";
+                        this.style.borderColor = "#41a654";
+                        showToast('Please enter only alphabet letters.');
+                    }
                 }
 
-                this.value = this.value.toUpperCase();
-                this.style.backgroundColor = "#CCFFCC";
-                this.style.borderColor = "green";
+                toggleSubmitButton();
             });
 
             container.appendChild(input);

@@ -1,0 +1,121 @@
+@font-face {
+    font-family: 'Virgil';
+    src: url('./fonts/virgil.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: lightgrey;
+    font-family: "Gill Sans MT";
+}
+
+h2 {
+    font-size: 40px;
+    text-align: center;
+}
+
+a {
+    font-size: 35px;
+    color: black;
+    transition: color 0.5s ease;
+}
+
+a:hover {
+    color: dimgrey;
+}
+
+p {
+    font-size: 25px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+#textInputFields {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#textInputFields input[type="text"] {
+    width: 50px;
+    height: 45px;
+    margin: 5px;
+    padding: 10px;
+    border: 3px solid #1e1e1e;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Virgil';
+    color: #1e1e1e;
+    font-weight: bold;
+    background-color: #e9ecef;
+}
+
+
+#submitButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: darkgrey;
+    border-radius: 10px;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+#submitButton:hover {
+    background-color: dimgrey;
+    border: 2px solid dimgrey;
+    border-radius: 10px;
+}
+
+.length-label {
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    background-color: grey;
+    margin-right: 5px;
+}
+
+.result-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.column {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.column p {
+    margin-bottom: 5px;
+}
+
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+    transform: translateX(-50%);
+}
+
+.toast.show {
+    visibility: visible;
+}

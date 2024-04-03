@@ -37,7 +37,7 @@ public class HomeController {
 
     @GetMapping("/word-builder")
     public String getBuilderView() {
-        return "word-builder-view";
+        return "fix-builder-view";
     }
 
     @PostMapping("/word-builder")
@@ -46,12 +46,12 @@ public class HomeController {
 
         model.addAttribute("builderResult", builderResult);
 
-        return "word-builder-view";
+        return "fix-builder-view";
     }
 
     @GetMapping("/all-word-builder")
     public String getAllBuilderView() {
-        return "all-word-builder-view";
+        return "flex-builder-view";
     }
 
     @PostMapping("/all-word-builder")
@@ -60,7 +60,7 @@ public class HomeController {
 
         model.addAttribute("builderResult", builderResult);
 
-        return "all-word-builder-view";
+        return "flex-builder-view";
     }
 
 }

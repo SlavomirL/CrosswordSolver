@@ -1,0 +1,80 @@
+body {
+    background-color: lightgrey;
+    font-family: "Gill Sans MT";
+}
+
+h2 {
+    font-size: 40px;
+    text-align: center;
+}
+
+a, h5 {
+    font-size: 35px;
+}
+
+p {
+    font-size: 25px;
+}
+
+.link-container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.link-sub-container {
+    display: flex;
+    border: 1px solid dimgrey;
+    padding: 10px;
+    background-color: white;
+}
+
+.link-sub-container:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+.link-description-container {
+    width: calc(33.3% - 20px);
+    padding: 10px;
+}
+
+.link-img-sub-container img {
+    width: 100%;
+    height: auto;
+    transition: transform 2.5s ease;
+}
+
+.link-text-sub-container a,
+.link-img-sub-container a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.5s ease;
+}
+
+.link-text-sub-container a:hover {
+    color: dimgrey;
+    background-color: lightgrey;
+    border: 2px solid grey;
+    border-radius: 10px;
+}
+
+.link-img-sub-container img:hover {
+    transform: scale(1.035);
+}
+
+.link-description-container {
+    align-self: flex-start;
+}
+
+.link-sub-container-right {
+    padding-left: 10%;
+}
+
+.link-description-container h5,
+.link-description-container p {
+    margin: 0;
+    padding: 5px 0;
+}
