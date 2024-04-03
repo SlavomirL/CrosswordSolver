@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/fix-style.css}"/>
-    <title>Words Builder</title>
+    <title>Fixed Words Builder</title>
 </head>
 
 <body>
@@ -19,12 +19,7 @@
     </form>
 
     <div class="result-box">
-        <div class="column"
-             th:each="columnIndex : ${#numbers.sequence(1, (builderResult == null or builderResult.isEmpty()) ? 1 : (builderResult.size() / 5) + 1)}">
-            <div th:each="word : ${builderResult != null ? builderResult.subList((columnIndex - 1) * 5, ((columnIndex * 5) < builderResult.size()) ? (columnIndex * 5) : builderResult.size()) : {}}">
-                <p th:text="${word}"></p>
-            </div>
-        </div>
+        <p th:each="word : ${builderResult}" th:text="${word}"></p>
     </div>
 
 </div>

@@ -71,12 +71,7 @@
     </form>
 
     <div class="result-box">
-        <div class="column"
-             th:each="columnIndex : ${#numbers.sequence(1, (crosswordResult == null or crosswordResult.isEmpty()) ? 1 : (crosswordResult.size() / 5) + 1)}">
-            <div th:each="word : ${crosswordResult != null ? crosswordResult.subList((columnIndex - 1) * 5, ((columnIndex * 5) < crosswordResult.size()) ? (columnIndex * 5) : crosswordResult.size()) : {}}">
-                <p th:text="${word}"></p>
-            </div>
-        </div>
+        <p th:each="word : ${crosswordResult}" th:text="${word}"></p>
     </div>
 
 </div>
