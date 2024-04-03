@@ -94,16 +94,19 @@
             input.type = 'text';
             input.name = 'letters';
             input.maxLength = 1;
-            input.addEventListener('input', function (event) {
-                const inputValue = event.target.value.trim();
-                if (!/^[A-Za-z]+$/.test(inputValue)) {
-                    if (event.inputType !== "deleteContentBackward" && event.inputType !== "deleteContentForward") {
-                        event.target.value = 'A';
-                        showToast('Please enter only alphabet letters.');
-                    }
+            input.placeholder = " ";
+
+            input.addEventListener('input', function () {
+                if (!/^[a-zA-Z]$/.test(this.value)) {
+                    this.value = 'A';
+                    showToast('Please enter only alphabet letters.');
                 }
-                updateString();
+
+                this.value = this.value.toUpperCase();
+                this.style.backgroundColor = "#CCFFCC";
+                this.style.borderColor = "green";
             });
+
             container.appendChild(input);
             container.appendChild(document.createElement('br'));
         }
@@ -115,17 +118,24 @@
         toast.textContent = message;
         document.body.appendChild(toast);
 
-        setTimeout(function() {
-            document.body.removeChild(toast);
-        }, 3000);
+        setTimeout(function () {
+            toast.classList.add('show');
+        }, 100);
+
+        setTimeout(function () {
+            toast.classList.remove('show');
+            setTimeout(function () {
+                document.body.removeChild(toast);
+            }, 3000);
+        }, 3500);
     }
 
 
-    function updateString() {
-        const inputs = document.getElementsByName('letters');
-        const stringArray = Array.from(inputs).map(input => input.value || ' ');
-        document.getElementById('stringToShow').textContent = stringArray.join('');
-    }
+    // function updateString() {
+    //     const inputs = document.getElementsByName('letters');
+    //     const stringArray = Array.from(inputs).map(input => input.value || ' ');
+    //     document.getElementById('stringToShow').textContent = stringArray.join('');
+    // }
 
     document.getElementById('wordLengthForm').addEventListener('change', function (event) {
         const wordLength = parseInt(event.target.value);
@@ -152,7 +162,6 @@
             submitButton.style.display = "none";
         }
     }
-
 </script>
 </body>
 </html>
